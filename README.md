@@ -1,1 +1,1 @@
-# Next.js Pokedex with Tailwind
+# Next.js Pokedex with UIkit
