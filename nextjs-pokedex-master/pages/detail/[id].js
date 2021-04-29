@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 import Head from 'next/head'
-
+import Title from '@components/title'
 
 // set icon untuk stats
 function Icon(stat) {
@@ -50,64 +50,54 @@ function Detail({ data }) {
 	return (
 		<div>
             {/* Ganti judul page sesuai nama pokemon */}
-            <div className="uk-container">
-        <div className="uk-child-width-1-1 uk-child-width-1-2 uk-grid" uk-grid="true">
-            <div>
-                <div>
-                    <div class="uk-card uk-card-default uk-card-body">
-                    <div className="uk-inline">
-                                <img src={data.sprites.front_default} width="800px" alt="illustration" />
-                            
-                </div>
-            </div>
-        </div>
-               
+            <Head>
+                <title>#{data.id} {data.name.toUpperCase()} | Pokédex</title>
+            </Head>
 
-            </div>
-            <div>
-            <div class="uk-card uk-card-default uk-card-body">
-       
-                                <p className="uk-card-title uk-text-capitalize uk-margin-small">
+			<div className="relative bg-white overflow-hidden">
+				<div className="max-w-7xl mx-auto mt-10 mb-10">
+                    <Title></Title>
+                    <div className="relative bg-white dark:bg-gray-800 p-4">
+                        <div className="lg:grid lg:grid-flow-row-dense lg:grid-cols-2 lg:gap-12 lg:items-center">
+                            <div className="lg:col-start-2 md:pl-20">
+                                <p className="text-indigo-500 text-md font-medium capitalize">
                                     {data.types.map(({ type, slot }) => (
                                         <span key={slot}>{type.name} {typesLength === slot ? "" : ' - '}</span>
                                     ))}
                                 </p>
-                                <h4 className=" uk-text-capitalize uk-margin-small">
+                                <h4 className="text-2xl leading-8 font-extrabold text-gray-900 dark:text-white tracking-tight sm:leading-9 capitalize">
                                     {data.name}
                                 </h4>
-                                <div>
+                                <ul className="mt-10">
                                     {data.stats.map(({ stat, base_stat }) => (
-                                    <div key={stat.name} >
+                                    <li key={stat.name} className="mb-6">
                                         <div className="flex">
-                                            <div className="uk-flex  uk-text-capitalize uk-margin-small">
-                                                <div className=" uk-text-capitalize uk-margin-small">
+                                            <div className="flex-shrink-0">
+                                                <div className="flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white">
                                                     {Icon(stat.name)}
                                                 </div>
-                                                <div>
-                                                <h5 className=" uk-text-capitalize uk-margin-small">
+                                            </div>
+                                            <div className="ml-4">
+                                                <h5 className="text-lg leading-4 text-gray-900 dark:text-white font-bold capitalize">
                                                     {stat.name}
                                                 </h5>
-                                                </div>
-                                            </div>
-                                            <div>
-                                               
-                                                <p className="uk-text-capitalize uk-margin-small">
+                                                <p className="mt-2 text-base leading-3 text-gray-500 dark:text-gray-300">
                                                     {base_stat}
                                                 </p>
                                             </div>
                                         </div>
-                                    </div>
+                                    </li>
                                     ))}
-                                </div>
+                                </ul>
                             </div>
-                           
+                            <div className="mt-10 -mx-4 md:-mx-12 relative lg:mt-0 lg:col-start-1">
+                                <img src={data.sprites.front_default} alt="illustration" className="relative mx-auto shadow-lg rounded w-80"/>
+                            </div>
                         </div>
                     </div>
 				</div>
 			</div>
-	
-
-		
+		</div>
 	);
 }
 
